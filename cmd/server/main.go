@@ -1,9 +1,19 @@
 package main
 
 import (
-	"fmt"
+	"postal-system/internal/config"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		return
+	}
+
+	postalService := service.NewPostalService(cfg)
+	if err != nil {
+		return
+	}
+
+	postalService.Start()
 }
